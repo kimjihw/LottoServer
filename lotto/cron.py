@@ -7,7 +7,8 @@ from lotto.models import Weekend
 
 
 def renewer_weekend():
-    count = 1064
+    latest_result = Weekend.objects.latest('count')
+    count = latest_result + 1
     url = "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=" + str(count)
     res = requests.get(url)
     json_data = json.loads(res.text)
