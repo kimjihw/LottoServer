@@ -13,4 +13,4 @@ class Lotto(models.Model):
 class Weekend(models.Model):
     date = models.CharField(max_length=20)
     count = models.CharField(max_length=128)
-    number = models.CharField(max_length=128)
+    numbers = models.CharField(max_length=128)

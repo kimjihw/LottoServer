@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework import generics
 # Create your views here.
-from lotto.models import Lotto
+from lotto.models import Lotto, Weekend
 from lotto.serializers import LottoSerializer
 import pandas as pd
 
@@ -36,12 +36,17 @@ def load_weekend_number(request):
     res = requests.get(url)
     json_data = json.loads(res.text)
 
+    rst = []
+
     date = str(json_data["drwNoDate"])
     count = str(json_data['drwNo'])
     numbers = str(json_data["drwtNo1"]) + " " + str(json_data["drwtNo2"]) + " " + str(json_data["drwtNo3"]) + " " + str(
-        json_data["drwtNo4"]) + " " + str(json_data["drwtNo5"]) + " " + str(json_data["drwtNo6"]) + " " + str(json_data["bnusNo"])
+        json_data["drwtNo4"]) + " " + str(json_data["drwtNo5"]) + " " + str(json_data["drwtNo6"]) + " " + str(
+        json_data["bnusNo"])
 
+    rst.append(Weekend(date=date, count=count, numbers=numbers))
 
+    Weekend.objects.bulk_create(rst)
     return HttpResponse("Connection Success!")
 
 

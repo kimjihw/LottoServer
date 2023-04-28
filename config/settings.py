@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-_=)5k=3v1j3&=6w&8%x+39$wn97+on+d5%a49f=&vr54q)g9=s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['14.192.82.158']
+ALLOWED_HOSTS = ['14.192.82.158', '127.0.0.1']
 
 # Application definition
 
@@ -123,3 +123,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRONJOBS = [
+    [('* * * * *', 'app.cron.renewer_weekend', '>> ./tmp/log/cron.log 2>&1 '), ]
+]
