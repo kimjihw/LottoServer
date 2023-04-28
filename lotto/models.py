@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Lotto(models.Model):
     count = models.CharField(max_length=10000)
@@ -7,3 +8,9 @@ class Lotto(models.Model):
 
     def __str__(self):
         return f"LottoNumbers for {self.count}"
+
+
+class Weekend(models.Model):
+    date = models.CharField(max_length=20)
+    count = models.CharField(max_length=128)
+    number = models.CharField(max_length=128)

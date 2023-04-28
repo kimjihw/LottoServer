@@ -4,10 +4,15 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.models import User
 
-from lotto.models import Lotto
+from lotto.models import Lotto, Weekend
 
 
 class LottoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lotto
+        fields = '__all__'
+
+class WeekendSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Weekend
         fields = '__all__'

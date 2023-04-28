@@ -6,6 +6,9 @@ from lotto.models import Lotto
 from lotto.serializers import LottoSerializer
 import pandas as pd
 
+import requests
+import json
+
 
 def save_numbers_to_db(request):
     df = pd.read_excel('static/excel/lotto.xlsx')
@@ -23,9 +26,23 @@ def save_numbers_to_db(request):
     for number in range(0, len(numbers)):
         lotto_numbers.append(Lotto(count=number + 1, number=numbers[number]))
 
-
     Lotto.objects.bulk_create(lotto_numbers)
     return HttpResponse("Connection Successful!")
+
+
+def load_weekend_number(request):
+    count = 1064
+    url = "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=" + str(count)
+    res = requests.get(url)
+    json_data = json.loads(res.text)
+
+    date = str(json_data["drwNoDate"])
+    count = str(json_data['drwNo'])
+    numbers = str(json_data["drwtNo1"]) + " " + str(json_data["drwtNo2"]) + " " + str(json_data["drwtNo3"]) + " " + str(
+        json_data["drwtNo4"]) + " " + str(json_data["drwtNo5"]) + " " + str(json_data["drwtNo6"]) + " " + str(json_data["bnusNo"])
+
+
+    return HttpResponse("Connection Success!")
 
 
 class LottoList(generics.ListAPIView):
