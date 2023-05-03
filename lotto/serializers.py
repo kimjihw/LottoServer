@@ -12,6 +12,7 @@ class LottoSerializer(serializers.ModelSerializer):
         model = Lotto
         fields = '__all__'
 
+
 class WeekendSerializer(serializers.ModelSerializer):
     class Meta:
         model = Weekend

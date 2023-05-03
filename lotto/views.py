@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework import generics
 # Create your views here.
 from lotto.models import Lotto, Weekend
-from lotto.serializers import LottoSerializer
+from lotto.serializers import LottoSerializer, WeekendSerializer
 import pandas as pd
 
 import requests
@@ -54,3 +54,8 @@ def load_weekend_number(request):
 class LottoList(generics.ListAPIView):
     queryset = Lotto.objects.all()
     serializer_class = LottoSerializer
+
+
+class WeekendLotto(generics.ListAPIView):
+    queryset = Weekend.objects.all()
+    serializer_class = WeekendSerializer
