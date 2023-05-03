@@ -11,7 +11,7 @@ from apscheduler.triggers.cron import CronTrigger
 def start():
     scheduler = BackgroundScheduler(timezone='Asia/Seoul')
     trigger = CronTrigger(hour="23")
-    @scheduler.scheduled_job('cron', day_of_week='sat', hour=21, id='test')
+    @scheduler.scheduled_job(trigger, day_of_week='sat', hour=21, id='test')
     def auto_check():
         latest_result = Weekend.objects.latest('count')
         count = int(latest_result.count) + 1
