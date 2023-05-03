@@ -5,6 +5,7 @@ from django.apps import AppConfig
 
 from lotto.models import Weekend
 from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.cron import CronTrigger
 
 
 def start():
