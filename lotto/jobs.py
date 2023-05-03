@@ -1,9 +1,10 @@
 import json
 
+import openpyxl
 import requests
 from django.apps import AppConfig
 
-from lotto.models import Weekend
+from lotto.models import Weekend, Lotto
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 
@@ -11,6 +12,7 @@ from apscheduler.triggers.cron import CronTrigger
 def start():
     scheduler = BackgroundScheduler(timezone='Asia/Seoul')
     trigger = CronTrigger(hour="23")
+
     @scheduler.scheduled_job(trigger, day_of_week='sat', hour=21, id='test')
     def auto_check():
         latest_result = Weekend.objects.latest('count')
@@ -31,5 +33,7 @@ def start():
         rst.append(Weekend(date=date, count=count, numbers=numbers))
 
         Weekend.objects.bulk_create(rst)
+
+        Lotto.objects.bulk_create(count=count, number=numbers)
 
     scheduler.start()

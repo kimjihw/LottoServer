@@ -31,7 +31,7 @@ def save_numbers_to_db(request):
 
 
 def load_weekend_number(request):
-    count = 1064
+    count = Weekend.objects.latest('count')
     url = "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo={}".format(count)
 
     res = requests.get(url)
