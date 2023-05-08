@@ -4,7 +4,6 @@ import openpyxl
 import requests
 from django.apps import AppConfig
 
-from lotto.models import Weekend, Lotto
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 
@@ -13,8 +12,11 @@ def start():
     scheduler = BackgroundScheduler(timezone='Asia/Seoul')
     trigger = CronTrigger(hour="23")
 
-    @scheduler.scheduled_job(trigger, day_of_week='sat', hour=21, id='test')
+    @scheduler.scheduled_job(trigger, day_of_week='mon', hour=10, id='test')
     def auto_check():
+
+        from lotto.models import Weekend, Lotto
+
         latest_result = Weekend.objects.latest('count')
         count = int(latest_result.count) + 1
         url = "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=" + str(count)
@@ -32,8 +34,8 @@ def start():
 
         rst.append(Weekend(date=date, count=count, numbers=numbers))
 
-        Weekend.objects.bulk_create(rst)
+        Weekend.objects.create(date=date, count=count, numbers=numbers)
 
-        Lotto.objects.bulk_create(count=count, number=numbers)
+        Lotto.objects.create(count=count, number=numbers)
 
     scheduler.start()

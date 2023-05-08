@@ -17,9 +17,9 @@ def save_numbers_to_db(request):
 
     for index, row in df.iterrows():
         count = str(row["회차"])
-        numbers.append(str(int(row["번호1"])) + " " + str(int(row["번호2"])) + " " + str(int(row["번호3"])) + " " + str(
-            int(row["번호4"])) + " " + str(int(row["번호5"])) + " " + str(
-            int(row["번호6"])) + " " + str(int(row["보너스"])))
+        numbers.append(str(int(row["번호1"])) + "," + str(int(row["번호2"])) + "," + str(int(row["번호3"])) + "," + str(
+            int(row["번호4"])) + "," + str(int(row["번호5"])) + "," + str(
+            int(row["번호6"])) + "," + str(int(row["보너스"])))
 
     numbers.reverse()
 
@@ -41,13 +41,14 @@ def load_weekend_number(request):
 
     date = str(json_data["drwNoDate"])
     count = str(json_data['drwNo'])
-    numbers = str(json_data["drwtNo1"]) + " " + str(json_data["drwtNo2"]) + " " + str(json_data["drwtNo3"]) + " " + str(
-        json_data["drwtNo4"]) + " " + str(json_data["drwtNo5"]) + " " + str(json_data["drwtNo6"]) + " " + str(
+    numbers = str(json_data["drwtNo1"]) + "," + str(json_data["drwtNo2"]) + "," + str(json_data["drwtNo3"]) + "," + str(
+        json_data["drwtNo4"]) + "," + str(json_data["drwtNo5"]) + "," + str(json_data["drwtNo6"]) + "," + str(
         json_data["bnusNo"])
 
     rst.append(Weekend(date=date, count=count, numbers=numbers))
 
     Weekend.objects.bulk_create(rst)
+
     return HttpResponse("Connection Success!")
 
 
