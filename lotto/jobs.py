@@ -10,7 +10,7 @@ from apscheduler.triggers.cron import CronTrigger
 
 def start():
     scheduler = BackgroundScheduler(timezone='Asia/Seoul')
-    trigger = CronTrigger(hour="10", minute="03", day_of_week="mon")
+    trigger = CronTrigger(hour="10", minute="05", day_of_week="mon")
 
     def auto_check():
 
