@@ -1,4 +1,5 @@
 import json
+import logging
 
 import openpyxl
 import requests
@@ -7,6 +8,7 @@ from django.apps import AppConfig
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 
+logging.basicConfig(filename="apscheduler.log", level=logging.DEBUG)
 
 def start():
     scheduler = BackgroundScheduler(daemon=True, timezone='Asia/Seoul')
@@ -37,6 +39,7 @@ def start():
         # Lotto.objects.create(count=count, number=numbers)
 
         print("Scheduler is alive!!")
+        logging.info("Job executed")
 
-    scheduler.add_job(auto_check, trigger)
+    scheduler.add_job(auto_check, 'interval', seconds=30)
     scheduler.start()
