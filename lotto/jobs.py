@@ -11,10 +11,6 @@ from apscheduler.triggers.cron import CronTrigger
 logging.basicConfig(filename="apscheduler.log", level=logging.DEBUG)
 
 
-def start():
-    trigger = CronTrigger(hour="10", minute="35", day_of_week="mon")
-
-
 def auto_check():
     from lotto.models import Weekend, Lotto
 
@@ -42,14 +38,8 @@ def auto_check():
     print("Scheduler is alive!!")
     logging.info("Job executed")
 
+
 scheduler = BackgroundScheduler(daemon=True, timezone='Asia/Seoul')
 
 scheduler.add_job(auto_check, 'interval', seconds=30)
 scheduler.start()
-
-# if __name__ == '__main__':
-#     scheduler = BackgroundScheduler(daemon=True, timezone='Asia/Seoul')
-#
-#     scheduler.add_job(auto_check, 'interval', seconds=30)
-#     scheduler.start()
-#     auto_check()
