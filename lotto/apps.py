@@ -6,7 +6,3 @@ class LottoConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'lotto'
 
-    def ready(self):
-        if getattr(settings, 'SCHEDULER_DEFAULT', False):
-            from . import jobs
-            jobs.start()
