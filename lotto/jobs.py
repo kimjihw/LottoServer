@@ -10,9 +10,8 @@ from apscheduler.triggers.cron import CronTrigger
 
 def start():
     scheduler = BackgroundScheduler(timezone='Asia/Seoul')
-    trigger = CronTrigger(hour="23")
+    trigger = CronTrigger(hour="10", day_of_week="mon")
 
-    @scheduler.scheduled_job(trigger, day_of_week='mon', hour=10, id='test')
     def auto_check():
 
         from lotto.models import Weekend, Lotto
@@ -38,4 +37,5 @@ def start():
 
         Lotto.objects.create(count=count, number=numbers)
 
+    scheduler.add_job(auto_check, trigger)
     scheduler.start()
