@@ -9,4 +9,4 @@ class LottoConfig(AppConfig):
     def ready(self):
         if getattr(settings, 'SCHEDULER_DEFAULT', False):
             from . import jobs
-            jobs.auto_check()
+            jobs.scheduler_test()
