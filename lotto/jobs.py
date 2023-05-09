@@ -1,13 +1,9 @@
 import json
 import logging
 import time
-
-import openpyxl
 import requests
-from django.apps import AppConfig
 
 from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.triggers.cron import CronTrigger
 from .models import Weekend, Lotto
 
 logging.basicConfig(filename="apscheduler.log", level=logging.DEBUG)
@@ -46,5 +42,4 @@ scheduler.add_job(auto_check, 'cron', second=0, id='test')
 logging.info("Scheduler started")
 scheduler.start()
 
-while True:
-    time.sleep(1)
+scheduler._thread.join()

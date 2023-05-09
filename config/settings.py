@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_=)5k=3v1j3&=6w&8%x+39$wn97+on+d5%a49f=&vr54q)g9=s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['14.192.82.158', '127.0.0.1']
 
@@ -37,9 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'lotto',
     'rest_framework',
-    'django_crontab'
-
-
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
