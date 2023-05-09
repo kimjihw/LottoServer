@@ -1,17 +1,12 @@
 import logging.config
 
 from apscheduler.schedulers.background import BackgroundScheduler
+from django.core.management import BaseCommand
 
 from lotto import api
 
-def job():
-    api.get_weekend()
+class Command(BaseCommand):
+    help = "Get weekend Lotto Numbers"
 
-
-def scheduler_test():
-    scheduler = BackgroundScheduler(daemon=True, timezone='Asia/Seoul')
-
-    scheduler.add_job(job, 'interval', seconds=10, id='scheduler_test')
-    scheduler.start()
-
-scheduler_test()
+    def handle(self, *args, **options):
+        api.get_weekend()

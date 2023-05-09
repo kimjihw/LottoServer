@@ -124,8 +124,5 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRONJOBS = [
-    ('* * * * *', 'app.cron.renewer_weekend', '>> /tmp/log/cron.log 2>&1 ')
+    ('* * * * *', 'lotto.jobs.Command', '>> /tmp/log/cron.log 2>&1 ')
 ]
-
-APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
-SCHEDULER_DEFAULT = True
