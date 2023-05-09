@@ -7,6 +7,6 @@ class LottoConfig(AppConfig):
     name = 'lotto'
 
     def ready(self):
-        if getattr(settings, 'SCHEDULER_DEFAULT', False):
-            from . import jobs
-            jobs.scheduler_test()
+        from .jobs import scheduler_test
+        from .models import Weekend, Lotto
+        scheduler_test()
