@@ -1,4 +1,5 @@
 import json
+import logging
 
 import requests
 
@@ -26,5 +27,6 @@ def get_weekend():
     # Weekend.objects.create(date=date, count=count, numbers=numbers)
     #
     # Lotto.objects.create(count=count, number=numbers)
-
+    logger = logging.getLogger('django')
+    logger.info("Crontab is alive!!")
     print("Scheduler is alive!!")
